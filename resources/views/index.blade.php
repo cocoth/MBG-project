@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MBG - Makan Bergizi Gratis | E-Voting Menu Makanan</title>
+    <title>MBG - Makan Bersama Gratis | E-Voting Menu Makanan</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -65,7 +65,13 @@
                     </div>
                     <div>
                         <span class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">MBG</span>
-                        <p class="text-xs text-gray-600">Makan Bergizi Gratis</p>
+                        <p class="text-xs text-gray-600">
+                            Makan
+                            <span class="text-red-400">
+                                Bersama
+                            </span>
+                            Gratis
+                        </p>
                     </div>
                 </div>
 
@@ -139,7 +145,7 @@
                         Suara Anda, Menu Kami
                     </h1>
                     <p class="text-xl md:text-2xl mb-8 text-purple-100">
-                        Berpartisipasi dalam menentukan menu Makan Bergizi Gratis. Voting mudah, cepat, dan transparan!
+                        Berpartisipasi dalam menentukan menu Makan <span class="text-red-400">Bersama</span>. Voting mudah, cepat, dan transparan!
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                         @guest
@@ -215,9 +221,9 @@
                 <!-- Content -->
                 <div>
                     <span class="text-purple-600 font-bold text-lg">Tentang Kami</span>
-                    <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6">Suara Rakyat untuk Menu Bergizi</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6">Suara Rakyat untuk Menu Bersama</h2>
                     <p class="text-gray-600 mb-4">
-                        MBG E-Voting adalah platform digital yang memungkinkan masyarakat berpartisipasi dalam menentukan menu makanan bergizi gratis.
+                        MBG E-Voting adalah platform digital yang memungkinkan masyarakat berpartisipasi dalam menentukan menu makanan <span class="text-red-400">Bersama</span> gratis.
                         Kami percaya bahwa setiap suara berharga dan berhak didengar.
                     </p>
                     <p class="text-gray-600 mb-6">
@@ -554,7 +560,7 @@
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Pilih Menu</h3>
                         <p class="text-purple-100">
-                            Telusuri berbagai pilihan menu makanan bergizi yang tersedia dan pilih menu favorit Anda
+                            Telusuri berbagai pilihan menu makanan bersama yang tersedia dan pilih menu favorit Anda
                         </p>
                     </div>
                 </div>
@@ -608,11 +614,11 @@
                         </div>
                         <div>
                             <span class="text-2xl font-bold">MBG</span>
-                            <p class="text-sm text-gray-400">Makan Bergizi Gratis</p>
+                            <p class="text-sm text-gray-400">Makan Bersama Gratis</p>
                         </div>
                     </div>
                     <p class="text-gray-400 mb-4">
-                        Platform E-Voting untuk menentukan menu Makan Bergizi Gratis.
+                        Platform E-Voting untuk menentukan menu Makan Bersama Gratis.
                         Suara Anda, Menu Kami.
                     </p>
                 </div>
