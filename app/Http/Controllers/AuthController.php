@@ -33,7 +33,7 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (!Auth::attempt($validated, $rememberme)) {
+        if (Auth::attempt($validated, $rememberme)) {
             $request->session()->regenerate();
             return $this->redirectBasedOnRole();
         }
@@ -55,6 +55,7 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => 'user', // Default role untuk user baru
         ]);
 
         Auth::login($user);

@@ -4,14 +4,15 @@
 <div class="max-w-4xl mx-auto">
     <!-- Header -->
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white/90">Buat Menu Voting Baru</h1>
-        <p class="text-gray-600 dark:text-gray-400 mt-2">Tambahkan menu makanan baru untuk di-voting oleh user</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white/90">Edit Menu Voting</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Update informasi menu voting</p>
     </div>
 
     <!-- Form -->
     <div class="bg-white dark:bg-white/3 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8">
-        <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.menus.update', $menu) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <!-- Title -->
             <div class="mb-6">
@@ -21,9 +22,8 @@
                 <input type="text"
                        name="title"
                        id="title"
-                       value="{{ old('title') }}"
+                       value="{{ old('title', $menu->title) }}"
                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
-                       placeholder="Contoh: Nasi Goreng Spesial"
                        required>
                 @error('title')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -39,35 +39,37 @@
                           id="description"
                           rows="4"
                           class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
-                          placeholder="Jelaskan menu makanan ini..."
-                          required>{{ old('description') }}</textarea>
+                          required>{{ old('description', $menu->description) }}</textarea>
                 @error('description')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
             </div>
 
+            <!-- Current Image -->
+            @if($menu->image_path)
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Foto Saat Ini
+                    </label>
+                    <img src="{{ asset('storage/' . $menu->image_path) }}"
+                         alt="{{ $menu->title }}"
+                         class="max-w-xs rounded-lg shadow-lg">
+                </div>
+            @endif
+
             <!-- Image Upload -->
             <div class="mb-6">
                 <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Foto Menu <span class="text-red-500">*</span>
+                    Ganti Foto (opsional)
                 </label>
-                <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-lg hover:border-purple-500 transition">
-                    <div class="space-y-1 text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <div class="flex text-sm text-gray-600 dark:text-gray-400">
-                            <label for="image" class="relative cursor-pointer bg-white dark:bg-gray-800 rounded-md font-medium text-purple-600 hover:text-purple-500">
-                                <span>Upload foto</span>
-                                <input id="image" name="image" type="file" class="sr-only" accept="image/*" required onchange="previewImage(event)">
-                            </label>
-                            <p class="pl-1">atau drag and drop</p>
-                        </div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF up to 2MB</p>
-                    </div>
-                </div>
+                <input type="file"
+                       name="image"
+                       id="image"
+                       accept="image/*"
+                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg dark:bg-gray-800 dark:text-white"
+                       onchange="previewImage(event)">
                 <div id="imagePreview" class="mt-4 hidden">
-                    <img src="" alt="Preview" class="max-w-xs rounded-lg shadow-lg mx-auto">
+                    <img src="" alt="Preview" class="max-w-xs rounded-lg shadow-lg">
                 </div>
                 @error('image')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -83,7 +85,7 @@
                     <input type="datetime-local"
                            name="vote_start"
                            id="vote_start"
-                           value="{{ old('vote_start') }}"
+                           value="{{ old('vote_start', $menu->vote_start->format('Y-m-d\TH:i')) }}"
                            class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-white"
                            required>
                     @error('vote_start')
@@ -98,13 +100,25 @@
                     <input type="datetime-local"
                            name="vote_end"
                            id="vote_end"
-                           value="{{ old('vote_end') }}"
+                           value="{{ old('vote_end', $menu->vote_end->format('Y-m-d\TH:i')) }}"
                            class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-white"
                            required>
                     @error('vote_end')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+            </div>
+
+            <!-- Active Status -->
+            <div class="mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox"
+                           name="is_active"
+                           value="1"
+                           {{ old('is_active', $menu->is_active) ? 'checked' : '' }}
+                           class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Menu Aktif</span>
+                </label>
             </div>
 
             <!-- Actions -->
@@ -115,7 +129,7 @@
                 </a>
                 <button type="submit"
                         class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:shadow-lg transition">
-                    Buat Menu
+                    Update Menu
                 </button>
             </div>
         </form>

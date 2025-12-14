@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminManagementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('home.')->group(function () {
@@ -35,26 +39,36 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
         return view('admin.profile');
     })->name('profile');
 
-    Route::get('/admin-management', function () {
-        return view('admin.admin-management');
-    })->name('admin-management');
+    // Admin Management Routes
+    Route::get('/admin-management', [AdminManagementController::class, 'index'])->name('admin-management.index');
+    Route::get('/admin-management/create', [AdminManagementController::class, 'create'])->name('admin-management.create');
+    Route::post('/admin-management', [AdminManagementController::class, 'store'])->name('admin-management.store');
+    Route::get('/admin-management/{admin}/edit', [AdminManagementController::class, 'edit'])->name('admin-management.edit');
+    Route::put('/admin-management/{admin}', [AdminManagementController::class, 'update'])->name('admin-management.update');
+    Route::delete('/admin-management/{admin}', [AdminManagementController::class, 'destroy'])->name('admin-management.destroy');
 
-    Route::get('/create-votes', function () {
-        return view('admin.create-votes');
-    })->name('create-votes');
-
-    Route::get('/view-votes', function () {
-        return view('admin.view-votes');
-    })->name('view-votes');
+    // Menu Management Routes
+    Route::get('/create-votes', [MenuController::class, 'create'])->name('create-votes');
+    Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+    Route::get('/view-votes', [MenuController::class, 'index'])->name('view-votes');
+    Route::get('/menus/{menu}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+    Route::put('/menus/{menu}', [MenuController::class, 'update'])->name('menus.update');
+    Route::delete('/menus/{menu}', [MenuController::class, 'destroy'])->name('menus.destroy');
+    Route::patch('/menus/{menu}/toggle', [MenuController::class, 'toggleActive'])->name('menus.toggle');
 });
 
 // User Routes
 Route::prefix('user')->middleware(['auth', 'role:user'])->name('user.')->group(function () {
-    Route::get('/', function () {
-        return view('user.dashboard');
-    })->name('dashboard');
+    Route::get('/', [UserDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [UserController::class, 'currentUser'])->name('profile');
-    Route::get('/votes', function () {
-        return view('votes');
-    })->name('votes');
+    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
+
+    // Voting Routes
+    Route::get('/menus', [VoteController::class, 'allMenus'])->name('menus');
+    Route::post('/votes/{menu}', [VoteController::class, 'vote'])->name('votes.cast');
+    Route::get('/vote-history', [VoteController::class, 'history'])->name('vote-history');
+
+    // Backward compatibility alias for old route
+    Route::get('/votes', [VoteController::class, 'allMenus'])->name('votes');
 });

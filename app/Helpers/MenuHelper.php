@@ -40,7 +40,8 @@ class MenuHelper
 
         if ($role === 'user') {
             $votesSubItems = [
-                ['name' => 'Votes History', 'path' => '/user/votes', 'pro' => false],
+                ['name' => 'All Menus', 'path' => '/user/menus', 'pro' => false],
+                ['name' => 'Vote History', 'path' => '/user/vote-history', 'pro' => false],
             ];
         }
 
@@ -51,14 +52,14 @@ class MenuHelper
                 'path' => $path,
             ],
             [
-                'icon' => 'user-profile',
-                'name' => 'Profile',
-                'subItems' => $userProfileSubItems,
-            ],
-            [
                 'name' => 'Votes',
                 'icon' => 'check',
                 'subItems' => $votesSubItems,
+            ],
+            [
+                'icon' => 'user-profile',
+                'name' => 'Profile',
+                'subItems' => $userProfileSubItems,
             ],
         ];
     }
