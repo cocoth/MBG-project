@@ -7,6 +7,175 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MBG - Makan Bersama Gratis | E-Voting Menu Makanan</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        /* Custom animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 0.6s ease-out forwards;
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 0.6s ease-out forwards;
+        }
+
+        .animate-fade-in-right {
+            animation: fadeInRight 0.6s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Scroll reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Smooth transitions for all interactive elements */
+        a, button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hover glow effect */
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+        /* Icon animations on hover */
+        .icon-rotate svg {
+            transition: transform 0.3s ease;
+        }
+
+        .icon-rotate:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .icon-bounce svg {
+            transition: transform 0.3s ease;
+        }
+
+        .icon-bounce:hover svg {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }    </style>
 </head>
 
 <body class="antialiased bg-gray-50">
@@ -37,7 +206,7 @@
                 <div class="flex items-center gap-4">
                     @auth
                         <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('user.dashboard') }}"
-                           class="px-4 py-1 bg-white text-purple-600 rounded hover:bg-purple-50 transition font-medium flex items-center">
+                           class="px-4 py-1 bg-white text-purple-600 rounded hover:bg-purple-50 transition-all duration-300 font-medium flex items-center hover:scale-105 hover:shadow-md">
                             Dashboard
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -45,7 +214,7 @@
                         </a>
                     @else
                         <a href="{{ route('auth.signin') }}"
-                           class="px-4 py-1 bg-white text-purple-600 rounded hover:bg-purple-50 transition font-medium">
+                           class="px-4 py-1 bg-white text-purple-600 rounded hover:bg-purple-50 transition-all duration-300 font-medium hover:scale-105 hover:shadow-md">
                             Masuk
                         </a>
                     @endauth
@@ -77,18 +246,18 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#beranda" class="text-gray-700 hover:text-purple-600 transition font-semibold">Beranda</a>
-                    <a href="#tentang" class="text-gray-700 hover:text-purple-600 transition font-semibold">Tentang</a>
-                    <a href="#fitur" class="text-gray-700 hover:text-purple-600 transition font-semibold">Fitur</a>
-                    <a href="#statistik" class="text-gray-700 hover:text-purple-600 transition font-semibold">Statistik</a>
-                    <a href="#cara-kerja" class="text-gray-700 hover:text-purple-600 transition font-semibold">Cara Kerja</a>
+                    <a href="#beranda" class="text-gray-700 hover:text-purple-600 transition-all duration-300 font-semibold hover:scale-110">Beranda</a>
+                    <a href="#tentang" class="text-gray-700 hover:text-purple-600 transition-all duration-300 font-semibold hover:scale-110">Tentang</a>
+                    <a href="#fitur" class="text-gray-700 hover:text-purple-600 transition-all duration-300 font-semibold hover:scale-110">Fitur</a>
+                    <a href="#statistik" class="text-gray-700 hover:text-purple-600 transition-all duration-300 font-semibold hover:scale-110">Statistik</a>
+                    <a href="#cara-kerja" class="text-gray-700 hover:text-purple-600 transition-all duration-300 font-semibold hover:scale-110">Cara Kerja</a>
                 </div>
 
                 <!-- CTA Button -->
                 <div class="hidden md:block">
                     @guest
                         <a href="{{ route('auth.signup') }}"
-                           class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-lg transition flex items-center">
+                           class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 flex items-center hover:scale-105 hover:-translate-y-0.5">
                             Mulai Voting
                             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -96,14 +265,14 @@
                         </a>
                     @else
                         <a href="{{ auth()->user()->isAdmin() ? route('admin.view-votes') : route('user.menus') }}"
-                           class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-lg transition">
+                           class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5">
                             Lihat Menu
                         </a>
                     @endguest
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                <button class="md:hidden text-gray-700 hover:text-purple-600 transition-all duration-300 hover:scale-110" onclick="toggleMobileMenu()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -112,11 +281,11 @@
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden md:hidden pb-4">
-                <a href="#beranda" class="block py-2 text-gray-700 hover:text-purple-600 transition">Beranda</a>
-                <a href="#tentang" class="block py-2 text-gray-700 hover:text-purple-600 transition">Tentang</a>
-                <a href="#fitur" class="block py-2 text-gray-700 hover:text-purple-600 transition">Fitur</a>
-                <a href="#statistik" class="block py-2 text-gray-700 hover:text-purple-600 transition">Statistik</a>
-                <a href="#cara-kerja" class="block py-2 text-gray-700 hover:text-purple-600 transition">Cara Kerja</a>
+                <a href="#beranda" class="block py-2 text-gray-700 hover:text-purple-600 transition-all duration-300 hover:pl-2">Beranda</a>
+                <a href="#tentang" class="block py-2 text-gray-700 hover:text-purple-600 transition-all duration-300 hover:pl-2">Tentang</a>
+                <a href="#fitur" class="block py-2 text-gray-700 hover:text-purple-600 transition-all duration-300 hover:pl-2">Fitur</a>
+                <a href="#statistik" class="block py-2 text-gray-700 hover:text-purple-600 transition-all duration-300 hover:pl-2">Statistik</a>
+                <a href="#cara-kerja" class="block py-2 text-gray-700 hover:text-purple-600 transition-all duration-300 hover:pl-2">Cara Kerja</a>
                 @guest
                     <a href="{{ route('auth.signup') }}" class="block mt-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-center font-semibold">
                         Mulai Voting
@@ -137,8 +306,8 @@
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Hero Text -->
-                <div class="text-center md:text-left">
-                    <span class="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-6">
+                <div class="text-center md:text-left animate-fade-in-left">
+                    <span class="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-6 animate-fade-in-down">
                         🎉 Platform E-Voting Menu Terpercaya
                     </span>
                     <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
@@ -167,8 +336,8 @@
                 </div>
 
                 <!-- Hero Image -->
-                <div class="relative">
-                    <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl">
+                <div class="relative animate-fade-in-right">
+                    <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover-glow">
                         <div class="bg-white rounded-2xl p-6 mb-4">
                             <div class="aspect-video bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center mb-4">
                                 <svg class="w-32 h-32 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,8 +372,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
                 <!-- Image -->
-                <div class="relative">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                <div class="relative scroll-reveal-left">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/30 transition-all duration-500">
                         <div class="aspect-square bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center">
                             <svg class="w-64 h-64 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -219,7 +388,7 @@
                 </div>
 
                 <!-- Content -->
-                <div>
+                <div class="scroll-reveal-right">
                     <span class="text-purple-600 font-bold text-lg">Tentang Kami</span>
                     <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6">Suara Rakyat untuk Menu Bersama</h2>
                     <p class="text-gray-600 mb-4">
@@ -240,7 +409,7 @@
 
             <!-- Features Grid -->
             <div class="grid md:grid-cols-4 gap-6">
-                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border border-gray-100">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 scroll-reveal hover-card hover:scale-105 hover:-translate-y-2 cursor-pointer">
                     <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
@@ -250,7 +419,7 @@
                     <p class="text-gray-600">Platform terbuka untuk seluruh masyarakat</p>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border border-gray-100">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 scroll-reveal hover-card hover:scale-105 hover:-translate-y-2 cursor-pointer">
                     <div class="w-16 h-16 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -260,7 +429,7 @@
                     <p class="text-gray-600">Sistem keamanan data terjamin</p>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border border-gray-100">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 scroll-reveal hover-card hover:scale-105 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -270,7 +439,7 @@
                     <p class="text-gray-600">Proses voting hanya dalam hitungan detik</p>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border border-gray-100">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 scroll-reveal hover-card hover:scale-105 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -287,7 +456,7 @@
     <section id="fitur" class="py-20 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 scroll-reveal">
                 <span class="text-purple-600 font-bold text-lg">Fitur Unggulan</span>
                 <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Kenapa Memilih MBG E-Voting?</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -298,7 +467,7 @@
             <!-- Features Grid -->
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 ease-in-out hover:border-purple-200 border border-transparent cursor-pointer">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
@@ -332,7 +501,7 @@
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:border-indigo-200 border border-transparent cursor-pointer">
                     <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -366,7 +535,7 @@
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:border-pink-200 border border-transparent cursor-pointer">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -412,13 +581,13 @@
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Left Side - Stats Info -->
-                <div>
+                <div class="scroll-reveal-left">
                     <span class="text-purple-200 font-bold text-lg">Statistik Platform</span>
                     <h2 class="text-4xl font-bold mt-2 mb-6">Angka dan Fakta MBG E-Voting</h2>
 
                     <!-- Stats Grid -->
                     <div class="grid grid-cols-2 gap-6 mb-8">
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 scroll-reveal hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105">
                             <div class="flex items-center mb-4">
                                 <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -432,7 +601,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 scroll-reveal hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105">
                             <div class="flex items-center mb-4">
                                 <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -446,7 +615,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 scroll-reveal hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105">
                             <div class="flex items-center mb-4">
                                 <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -460,7 +629,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 scroll-reveal hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105">
                             <div class="flex items-center mb-4">
                                 <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -477,11 +646,11 @@
                 </div>
 
                 <!-- Right Side - How We Help -->
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8">
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 scroll-reveal-right">
                     <h3 class="text-3xl font-bold mb-6">Bagaimana Kami Membantu</h3>
 
                     <div class="space-y-4">
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex items-start gap-4">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex items-start gap-4 hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105 hover:-translate-y-1">
                             <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -493,7 +662,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex items-start gap-4">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex items-start gap-4 hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105 hover:-translate-y-1">
                             <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -505,7 +674,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex items-start gap-4">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex items-start gap-4 hover:bg-white/20 transition-all duration-300 cursor-pointer hover:scale-105 hover:-translate-y-1">
                             <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -526,7 +695,7 @@
     <section id="cara-kerja" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 scroll-reveal">
                 <span class="text-purple-600 font-bold text-lg">Cara Kerja</span>
                 <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Mulai Voting Dalam 3 Langkah Mudah</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -540,8 +709,8 @@
                 <div class="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 transform -translate-y-1/2" style="top: 4rem; left: 16.666%; right: 16.666%;"></div>
 
                 <!-- Step 1 -->
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2">
+                <div class="relative scroll-reveal">
+                    <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 hover-glow">
                         <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                             <span class="text-3xl font-bold text-purple-600">1</span>
                         </div>
@@ -553,8 +722,8 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2">
+                <div class="relative scroll-reveal">
+                    <div class="bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 hover-glow">
                         <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                             <span class="text-3xl font-bold text-indigo-600">2</span>
                         </div>
@@ -566,8 +735,8 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2">
+                <div class="relative scroll-reveal">
+                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 hover-glow">
                         <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                             <span class="text-3xl font-bold text-purple-600">3</span>
                         </div>
@@ -580,10 +749,10 @@
             </div>
 
             <!-- CTA -->
-            <div class="text-center mt-16">
+            <div class="text-center mt-16 scroll-reveal">
                 @guest
                     <a href="{{ route('auth.signup') }}"
-                       class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition">
+                       class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 hover:-translate-y-1">
                         Mulai Voting Sekarang
                         <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -591,7 +760,7 @@
                     </a>
                 @else
                     <a href="{{ auth()->user()->isAdmin() ? route('admin.view-votes') : route('user.menus') }}"
-                       class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition">
+                       class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 hover:-translate-y-1">
                         Lihat Menu Voting
                         <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -627,10 +796,10 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Navigasi</h4>
                     <ul class="space-y-2">
-                        <li><a href="#beranda" class="text-gray-400 hover:text-white transition">Beranda</a></li>
-                        <li><a href="#tentang" class="text-gray-400 hover:text-white transition">Tentang</a></li>
-                        <li><a href="#fitur" class="text-gray-400 hover:text-white transition">Fitur</a></li>
-                        <li><a href="#cara-kerja" class="text-gray-400 hover:text-white transition">Cara Kerja</a></li>
+                        <li><a href="#beranda" class="text-gray-400 hover:text-white transition-all duration-300 inline-block hover:translate-x-1">Beranda</a></li>
+                        <li><a href="#tentang" class="text-gray-400 hover:text-white transition-all duration-300 inline-block hover:translate-x-1">Tentang</a></li>
+                        <li><a href="#fitur" class="text-gray-400 hover:text-white transition-all duration-300 inline-block hover:translate-x-1">Fitur</a></li>
+                        <li><a href="#cara-kerja" class="text-gray-400 hover:text-white transition-all duration-300 inline-block hover:translate-x-1">Cara Kerja</a></li>
                     </ul>
                 </div>
 
@@ -660,9 +829,9 @@
                     © 2025 MBG E-Voting. All rights reserved.
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-all duration-300 hover:scale-105">Privacy Policy</a>
                     <span class="text-gray-600">|</span>
-                    <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-all duration-300 hover:scale-105">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -688,6 +857,87 @@
                     }
                 }
             });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('revealed');
+                    }, index * 100); // Staggered animation
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with scroll-reveal classes
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+            revealElements.forEach((el) => observer.observe(el));
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+
+            parallaxElements.forEach((el) => {
+                const speed = el.dataset.speed || 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Counter animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start) + '+';
+                }
+            }, 16);
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
+                        animateCounter(counter, target);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsSection = document.getElementById('statistik');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+
+        // Navbar background change on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl');
+                nav.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.classList.remove('shadow-xl');
+                nav.style.backgroundColor = 'white';
+            }
         });
     </script>
 </body>
