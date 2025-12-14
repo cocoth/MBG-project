@@ -117,7 +117,8 @@
                             <div class="mt-5">
                                 <p class="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
                                     Don't have an account?
-                                    <a href="/auth/signup" class="text-brand-500 hover:text-brand-600 dark:text-brand-400">Sign
+                                    <a href="/auth/signup"
+                                        class="text-brand-500 hover:text-brand-600 dark:text-brand-400">Sign
                                         Up</a>
                                 </p>
                             </div>
@@ -128,16 +129,7 @@
 
             <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
                 <div class="z-1 flex items-center justify-center">
-                    <!-- ===== Common Grid Shape Start ===== -->
                     <x-common.common-grid-shape />
-                    <div class="flex max-w-xs flex-col items-center">
-                        <a href="/" class="mb-4 block">
-                            <img src="./images/logo/auth-logo.svg" alt="Logo" />
-                        </a>
-                        <p class="text-center text-gray-400 dark:text-white/60">
-                            Free and Open-Source Tailwind CSS Admin Dashboard Template
-                        </p>
-                    </div>
                 </div>
             </div>
             <!-- Toggler -->
